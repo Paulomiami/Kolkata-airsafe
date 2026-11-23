@@ -1,0 +1,181 @@
+/* AirSafe Family - Urban Air Quality Assistant */
+:root {
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+
+  /* AQI Color Palette */
+  --aqi-safe: #10B981;      /* Green */
+  --aqi-safe-bg: #ECFDF5;
+  --aqi-safe-border: #A7F3D0;
+
+  --aqi-moderate: #F59E0B;  /* Yellow / Amber */
+  --aqi-moderate-bg: #FFFBEB;
+  --aqi-moderate-border: #FDE68A;
+
+  --aqi-poor: #EF4444;      /* Red */
+  --aqi-poor-bg: #FEF2F2;
+  --aqi-poor-border: #FECACA;
+
+  --aqi-severe: #881337;    /* Dark Red / Burgundy */
+  --aqi-severe-bg: #FFF1F2;
+  --aqi-severe-border: #FDA4AF;
+
+  /* Member Card Colors */
+  --child-color: #0284C7;
+  --child-bg: #F0F9FF;
+  --child-border: #BAE6FD;
+
+  --elderly-color: #D97706;
+  --elderly-bg: #FFFBEB;
+  --elderly-border: #FDE68A;
+
+  --asthma-color: #E11D48;
+  --asthma-bg: #FFF1F2;
+  --asthma-border: #FECDD3;
+
+  --adult-color: #059669;
+  --adult-bg: #ECFDF5;
+  --adult-border: #A7F3D0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: #F8FAFC;
+  color: #1E293B;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism & Card styling */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+}
+
+.gemini-gradient-text {
+  background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 40%, #8B5CF6 70%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gemini-badge {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.15));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: #4338CA;
+}
+
+.gemini-btn {
+  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 50%, #7C3AED 100%);
+  box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39);
+  transition: all 0.25s ease;
+}
+
+.gemini-btn:hover {
+  box-shadow: 0 6px 20px 0 rgba(79, 70, 229, 0.5);
+  transform: translateY(-1px);
+}
+
+.gemini-btn:active {
+  transform: translateY(0);
+}
+
+/* Family Member Checkbox Card */
+.member-option {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.member-option:hover {
+  transform: translateY(-2px);
+  border-color: #6366F1;
+}
+
+.member-option.selected {
+  border-color: #4F46E5;
+  background-color: #EEF2FF;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* Pulsing badge */
+.pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: pulse-ring 1.8s infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* AQI gauge colors dynamically bound */
+.aqi-pill-safe {
+  background-color: var(--aqi-safe-bg);
+  border-color: var(--aqi-safe-border);
+  color: var(--aqi-safe);
+}
+
+.aqi-pill-moderate {
+  background-color: var(--aqi-moderate-bg);
+  border-color: var(--aqi-moderate-border);
+  color: var(--aqi-moderate);
+}
+
+.aqi-pill-poor {
+  background-color: var(--aqi-poor-bg);
+  border-color: var(--aqi-poor-border);
+  color: var(--aqi-poor);
+}
+
+.aqi-pill-severe {
+  background-color: var(--aqi-severe-bg);
+  border-color: var(--aqi-severe-border);
+  color: var(--aqi-severe);
+}
+
+/* Card Transitions */
+.fade-in {
+  animation: fadeIn 0.35s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Quick Pincode Chip */
+.pincode-chip {
+  transition: all 0.15s ease;
+}
+.pincode-chip:hover {
+  background-color: #E2E8F0;
+  border-color: #94A3B8;
+  transform: translateY(-1px);
+}

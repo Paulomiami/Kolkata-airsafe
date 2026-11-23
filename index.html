@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AirSafe Family - Urban Air Quality Assistant | Kolkata</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Outfit', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#EEF2FF',
+              100: '#E0E7FF',
+              500: '#6366F1',
+              600: '#4F46E5',
+              700: '#4338CA',
+              900: '#312E81',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 font-sans antialiased flex flex-col justify-between">
+
+  <!-- TOP ANNOUNCEMENT BANNER -->
+  <div class="bg-indigo-900 text-indigo-100 text-xs sm:text-sm py-2 px-4 border-b border-indigo-800">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-indigo-500/30 text-indigo-200">
+          📍 Kolkata Winter Advisory
+        </span>
+        <span class="hidden sm:inline">Protecting kids, elders & asthma patients across Kolkata</span>
+      </div>
+      <div class="flex items-center space-x-2 font-medium">
+        <span class="text-indigo-300">⚡ Powered by Gemini AI</span>
+        <!-- Language Switcher -->
+        <div class="inline-flex rounded-lg border border-indigo-700 p-0.5 bg-indigo-950/60 ml-3">
+          <button id="lang-en" onclick="setLanguage('en')" class="px-2 py-0.5 rounded text-xs font-semibold bg-indigo-600 text-white">English</button>
+          <button id="lang-bn" onclick="setLanguage('bn')" class="px-2 py-0.5 rounded text-xs font-semibold bg-white/10 text-slate-300 hover:text-white">বাংলা</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200/80">
+    <div class="max-w-5xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md shadow-indigo-200">
+          <span class="text-xl sm:text-2xl">🌱</span>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-lg sm:text-2xl font-extrabold font-heading text-slate-900 tracking-tight leading-none">
+              AirSafe Family
+            </h1>
+            <span class="inline-flex items-center text-[11px] font-bold px-2 py-0.5 rounded-full gemini-badge">
+              Gemini AI
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 font-medium">Urban Air Quality Assistant &bull; Kolkata, India</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons: Indoor Hacks & Tomorrow Plan -->
+      <div class="flex items-center space-x-2">
+        <button onclick="openIndoorHacks()" 
+                class="hidden md:inline-flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition border border-slate-200"
+                title="3 things to clean your home air today">
+          <span>🏠</span>
+          <span>Indoor Hacks</span>
+        </button>
+        <button onclick="openTomorrowPlan()" 
+                class="hidden md:inline-flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition border border-indigo-200"
+                title="Should I go for jogging tomorrow morning?">
+          <span>🏃</span>
+          <span>Tomorrow's Plan</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="max-w-5xl mx-auto px-4 py-6 sm:py-8 space-y-8 flex-1 w-full">
+
+    <!-- HERO SEARCH SECTION (HOME PAGE) -->
+    <section class="glass-panel rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl bg-gradient-to-b from-white to-slate-50/50">
+      <div class="max-w-2xl mx-auto text-center space-y-3">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
+          <span class="pulse-dot bg-emerald-500"></span>
+          <span>Live Kolkata Air Quality & Gemini AI Precautions</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold font-heading text-slate-900 tracking-tight">
+          Know What Your Family is Breathing Today
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600">
+          Enter your Kolkata pincode to check local AQI and get instant personalized safety advice powered by Gemini AI.
+        </p>
+
+        <!-- Big Search Box -->
+        <div class="pt-4 max-w-xl mx-auto">
+          <div class="relative flex items-stretch rounded-2xl shadow-lg border-2 border-slate-300 focus-within:border-indigo-600 focus-within:ring-4 focus-within:ring-indigo-100 transition-all bg-white overflow-hidden">
+            <div class="pl-4 sm:pl-5 flex items-center pointer-events-none text-slate-400">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+            <input type="text" 
+                   id="pincode-input" 
+                   value="700091" 
+                   maxlength="6"
+                   placeholder="Enter Your Pincode (e.g. 700091, 700156, 700032)" 
+                   aria-label="Enter Your Pincode"
+                   class="w-full py-4 px-3 sm:px-4 text-base sm:text-lg font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none bg-transparent">
+            <button onclick="handlePincodeSearch()" 
+                    class="gemini-btn px-6 sm:px-8 text-white font-bold text-sm sm:text-base flex items-center space-x-2">
+              <span>Check AQI</span>
+              <svg class="w-4 h-4 hidden sm:inline" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Error Message Display -->
+          <p id="pincode-error" class="hidden text-red-600 text-sm font-semibold text-left mt-2.5 pl-2 flex items-center space-x-1.5 animate-bounce">
+            <span>⚠️</span>
+            <span>This pincode does not look like Kolkata, please enter a valid pincode</span>
+          </p>
+
+          <!-- Quick Pincode Suggestions -->
+          <div class="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-600">
+            <span class="font-medium text-slate-500">Popular Kolkata Areas:</span>
+            <button onclick="selectQuickPincode('700091')" class="pincode-chip px-3 py-1.5 rounded-full bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 border border-slate-200 font-semibold text-slate-700">
+              700091 Salt Lake
+            </button>
+            <button onclick="selectQuickPincode('700156')" class="pincode-chip px-3 py-1.5 rounded-full bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 border border-slate-200 font-semibold text-slate-700">
+              700156 New Town
+            </button>
+            <button onclick="selectQuickPincode('700032')" class="pincode-chip px-3 py-1.5 rounded-full bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 border border-slate-200 font-semibold text-slate-700">
+              700032 Jadavpur
+            </button>
+            <button onclick="selectQuickPincode('700019')" class="pincode-chip px-3 py-1.5 rounded-full bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 border border-slate-200 font-semibold text-slate-700">
+              700019 Ballygunge
+            </button>
+            <button onclick="selectQuickPincode('700084')" class="pincode-chip px-3 py-1.5 rounded-full bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 border border-slate-200 font-semibold text-slate-700">
+              700084 Garia
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AQI DISPLAY CARD SECTION -->
+    <section id="main-results" class="space-y-4">
+      <div id="aqi-card" class="glass-panel rounded-3xl p-6 sm:p-8 border-2 transition-all duration-300">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          
+          <!-- Area Details & Station -->
+          <div class="space-y-2 max-w-lg">
+            <div class="flex items-center space-x-2">
+              <span class="px-2.5 py-0.5 rounded-md text-xs font-bold uppercase tracking-wider bg-slate-200 text-slate-700">
+                Kolkata Monitoring Area
+              </span>
+              <span class="text-xs text-slate-500 font-medium flex items-center space-x-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>Active WBPCB Feed</span>
+              </span>
+            </div>
+            
+            <h2 id="area-name" class="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900">
+              Salt Lake (Sector V / Bidhannagar)
+            </h2>
+            
+            <p id="station-name" class="text-xs sm:text-sm text-slate-500 font-medium">
+              Bidhannagar WBPCB Ambient Air Monitoring Station
+            </p>
+            
+            <p id="aqi-summary" class="text-sm sm:text-base text-slate-700 font-medium pt-1">
+              Breathing discomfort to most people on prolonged exposure. Mask advised for outdoor commuters.
+            </p>
+
+            <!-- Pollutant pills -->
+            <div class="pt-2 flex flex-wrap items-center gap-2 text-xs">
+              <span class="px-3 py-1 rounded-lg bg-white/80 border border-slate-200 font-semibold text-slate-600">
+                Primary Pollutant: <strong id="primary-pollutant" class="text-slate-900">PM2.5 (Fine Particulates)</strong>
+              </span>
+              <span class="px-3 py-1 rounded-lg bg-white/80 border border-slate-200 font-semibold text-slate-600">
+                Temp: <strong class="text-slate-900">25°C</strong> &bull; Humidity: <strong class="text-slate-900">64%</strong>
+              </span>
+              <span class="px-2.5 py-1 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 font-bold">
+                Powered by Gemini AI
+              </span>
+            </div>
+          </div>
+
+          <!-- Big AQI Gauge Display -->
+          <div class="flex md:flex-col items-center justify-between md:justify-center bg-white/80 rounded-2xl p-6 border border-slate-200/80 shadow-sm min-w-[220px] text-center">
+            <span class="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-1">
+              AIR QUALITY INDEX
+            </span>
+            <div id="aqi-number" class="text-6xl sm:text-7xl font-extrabold tracking-tight">
+              248
+            </div>
+            <div class="mt-2">
+              <span id="aqi-badge" class="inline-flex items-center px-4 py-1.5 rounded-full text-base font-bold shadow-sm">
+                Poor
+              </span>
+            </div>
+            <span class="text-[11px] text-slate-400 font-medium mt-1">Kolkata AQI Standard</span>
+          </div>
+
+        </div>
+
+        <!-- AQI Scale Color Reference (Prompt Requirement) -->
+        <div class="mt-6 pt-5 border-t border-slate-200/80">
+          <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
+            <span>Air Quality Scale:</span>
+            <span>Simulation Mode Available Below</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold text-center">
+            <div class="p-2 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300">
+              🟢 Green = Safe (0-100)
+            </div>
+            <div class="p-2 rounded-xl bg-amber-100 text-amber-800 border border-amber-300">
+              🟡 Yellow = Moderate (101-200)
+            </div>
+            <div class="p-2 rounded-xl bg-red-100 text-red-800 border border-red-300">
+              🔴 Red = Poor (201-400)
+            </div>
+            <div class="p-2 rounded-xl bg-rose-950 text-rose-100 border border-rose-900">
+              🟣 Dark Red = Severe (401+)
+            </div>
+          </div>
+
+          <!-- Interactive AQI Simulator Toggle (Allows testing Gemini AI advice dynamically across all scenarios) -->
+          <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs bg-slate-100/70 p-2.5 rounded-xl border border-slate-200">
+            <span class="font-bold text-slate-600 flex items-center space-x-1">
+              <span>🧪</span>
+              <span>Test Gemini AI Advice for other AQI Levels:</span>
+            </span>
+            <div class="flex items-center space-x-1.5">
+              <button id="sim-safe" onclick="setAqiSimulation('safe')" class="sim-btn px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-medium hover:bg-emerald-700 transition">
+                Safe (42)
+              </button>
+              <button id="sim-moderate" onclick="setAqiSimulation('moderate')" class="sim-btn px-2.5 py-1 rounded-lg bg-amber-500 text-white font-medium hover:bg-amber-600 transition">
+                Moderate (145)
+              </button>
+              <button id="sim-poor" onclick="setAqiSimulation('poor')" class="sim-btn px-2.5 py-1 rounded-lg bg-red-600 text-white font-extrabold ring-2 ring-indigo-600 transition">
+                Poor (248)
+              </button>
+              <button id="sim-severe" onclick="setAqiSimulation('severe')" class="sim-btn px-2.5 py-1 rounded-lg bg-rose-900 text-white font-medium hover:bg-rose-950 transition">
+                Severe (430)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 MORE FEATURES (DESKTOP / MOBILE BUTTONS AS REQUESTED) -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <!-- Feature 1: Indoor Hacks Button -->
+      <div class="bg-gradient-to-br from-indigo-50 to-blue-50 border-2 border-indigo-200 rounded-3xl p-5 shadow-sm flex flex-col justify-between">
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🏠</span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 border border-indigo-300">
+              Powered by Gemini AI
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900">Indoor Home Cleanliness</h3>
+          <p class="text-xs text-slate-600">
+            Simple, low-cost steps to lower particulate matter inside Kolkata flats and standalone houses.
+          </p>
+        </div>
+        <div class="mt-4">
+          <button onclick="openIndoorHacks()" 
+                  class="w-full py-3 px-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center space-x-2">
+            <span>✨</span>
+            <span>3 things to clean your home air today</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Feature 2: Tomorrow's Plan Button -->
+      <div class="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-3xl p-5 shadow-sm flex flex-col justify-between">
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🏃</span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+              Powered by Gemini AI
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900">Morning Fitness Planner</h3>
+          <p class="text-xs text-slate-600">
+            Analysis of Kolkata winter morning smog and inversion layer for runners and walkers.
+          </p>
+        </div>
+        <div class="mt-4">
+          <button onclick="openTomorrowPlan()" 
+                  class="w-full py-3 px-4 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center space-x-2">
+            <span>🌅</span>
+            <span>Should I go for jogging tomorrow morning?</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAMILY MODE - MAIN FEATURE SECTION -->
+    <section class="glass-panel rounded-3xl p-6 sm:p-8 border-2 border-indigo-200 bg-white shadow-xl space-y-6">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-5">
+        <div>
+          <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 mb-1 border border-indigo-200">
+            <span>✨</span>
+            <span>MAIN FEATURE &bull; FAMILY MODE</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900 tracking-tight">
+            Who is in your family?
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 font-medium">
+            Select who you are protecting today. Gemini AI will craft tailored health precautions for each person.
+          </p>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Multi-Select Enabled</span>
+        </div>
+      </div>
+
+      <!-- 4 Options for Family Selection -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Option 1: Child (0-10 years) -->
+        <div id="option-child" 
+             onclick="toggleMember('child')" 
+             class="member-option selected rounded-2xl p-4 border-2 border-indigo-500 bg-indigo-50/50 shadow-sm relative flex flex-col justify-between">
+          <div class="flex items-start justify-between">
+            <span class="text-3xl">🧒</span>
+            <div class="check-indicator w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold transition">
+              ✓
+            </div>
+          </div>
+          <div class="mt-3">
+            <h4 class="font-bold text-slate-900 text-base">Child</h4>
+            <p class="text-xs text-indigo-700 font-semibold">(0-10 years)</p>
+            <p class="text-xs text-slate-500 mt-1 leading-relaxed">High respiration rate, developing lungs.</p>
+          </div>
+        </div>
+
+        <!-- Option 2: Elderly / Grandparents (60+ years) -->
+        <div id="option-elderly" 
+             onclick="toggleMember('elderly')" 
+             class="member-option selected rounded-2xl p-4 border-2 border-indigo-500 bg-indigo-50/50 shadow-sm relative flex flex-col justify-between">
+          <div class="flex items-start justify-between">
+            <span class="text-3xl">👵👴</span>
+            <div class="check-indicator w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold transition">
+              ✓
+            </div>
+          </div>
+          <div class="mt-3">
+            <h4 class="font-bold text-slate-900 text-base">Elderly / Grandparents</h4>
+            <p class="text-xs text-amber-700 font-semibold">(60+ years)</p>
+            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Dadi / Dada morning walk safety.</p>
+          </div>
+        </div>
+
+        <!-- Option 3: Asthma / Breathing Problem Person -->
+        <div id="option-asthma" 
+             onclick="toggleMember('asthma')" 
+             class="member-option selected rounded-2xl p-4 border-2 border-indigo-500 bg-indigo-50/50 shadow-sm relative flex flex-col justify-between">
+          <div class="flex items-start justify-between">
+            <span class="text-3xl">🫁</span>
+            <div class="check-indicator w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold transition">
+              ✓
+            </div>
+          </div>
+          <div class="mt-3">
+            <h4 class="font-bold text-slate-900 text-base">Asthma / Breathing</h4>
+            <p class="text-xs text-rose-700 font-semibold">High Sensitivity</p>
+            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Inhaler & window seal precautions.</p>
+          </div>
+        </div>
+
+        <!-- Option 4: Normal Adult -->
+        <div id="option-adult" 
+             onclick="toggleMember('adult')" 
+             class="member-option selected rounded-2xl p-4 border-2 border-indigo-500 bg-indigo-50/50 shadow-sm relative flex flex-col justify-between">
+          <div class="flex items-start justify-between">
+            <span class="text-3xl">🧑</span>
+            <div class="check-indicator w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold transition">
+              ✓
+            </div>
+          </div>
+          <div class="mt-3">
+            <h4 class="font-bold text-slate-900 text-base">Normal Adult</h4>
+            <p class="text-xs text-emerald-700 font-semibold">Office / Commuter</p>
+            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Daily transit & outdoor mask guide.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Button: "Check For My Family" -->
+      <div class="pt-2 text-center">
+        <button onclick="renderFamilyAdvice()" 
+                class="gemini-btn w-full sm:w-auto px-8 py-4 rounded-2xl text-white font-extrabold text-base sm:text-lg flex items-center justify-center space-x-3 mx-auto">
+          <span>✨</span>
+          <span>Check For My Family</span>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-white/20">Powered by Gemini AI</span>
+        </button>
+      </div>
+
+      <!-- FAMILY ADVICE CARDS CONTAINER (DIFFERENT COLOR FOR EACH MEMBER) -->
+      <div id="family-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <!-- Empty State if no member selected -->
+      <div id="empty-family-state" class="hidden text-center py-12 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-300">
+        <span class="text-4xl">👨‍👩‍👧‍👦</span>
+        <h3 class="text-lg font-bold text-slate-700 mt-2">No Family Member Selected</h3>
+        <p class="text-xs text-slate-500">Please click on at least one member above (Child, Elderly, Asthma, or Normal Adult) to view Gemini AI advice.</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- MODAL: FEATURE 1 - INDOOR HACKS -->
+  <div id="indoor-hacks-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-5 fade-in">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div class="flex items-center space-x-3">
+          <span class="text-3xl">🏠</span>
+          <div>
+            <h3 class="text-xl font-extrabold text-slate-900">3 Things to Clean Your Home Air Today</h3>
+            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
+              Powered by Gemini AI &bull; Kolkata Urban Hacks
+            </span>
+          </div>
+        </div>
+        <button onclick="closeIndoorHacks()" class="text-slate-400 hover:text-slate-700 p-2 text-2xl font-bold leading-none">
+          &times;
+        </button>
+      </div>
+
+      <div class="space-y-4 text-sm text-slate-700">
+        <!-- Hack 1 -->
+        <div class="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 space-y-1.5">
+          <div class="flex items-center space-x-2 font-bold text-indigo-900 text-base">
+            <span>1️⃣</span>
+            <span>Wet Mopping Instead of Dry Sweeping</span>
+          </div>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            In Kolkata homes, dry broom sweeping (ঝাড়ু) flings microscopic PM2.5, road silt, and soot back into breathing height where it hangs for 4+ hours. Use a damp microfiber mop with water and a pinch of salt or neem liquid. It traps and flushes particulates down the drain permanently.
+          </p>
+        </div>
+
+        <!-- Hack 2 -->
+        <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-100 space-y-1.5">
+          <div class="flex items-center space-x-2 font-bold text-blue-900 text-base">
+            <span>2️⃣</span>
+            <span>Smart Ventilation Window (12:30 PM - 3:30 PM)</span>
+          </div>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            Never open windows during early morning (6 AM - 10 AM) or evening rush hours (6 PM - 9 PM) when bus and auto exhausts are trapped by cold air. Open balcony and bedroom windows strictly between 12:30 PM and 3:30 PM when afternoon solar warmth lifts the ground inversion layer.
+          </p>
+        </div>
+
+        <!-- Hack 3 -->
+        <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-100 space-y-1.5">
+          <div class="flex items-center space-x-2 font-bold text-emerald-900 text-base">
+            <span>3️⃣</span>
+            <span>Low-Cost Kolkata Purifying Plants</span>
+          </div>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            Place 2-3 local low-maintenance indoor plants like <strong>Areca Palm (লিভিং রুম পাম)</strong>, <strong>Snake Plant (সাপ গাছ)</strong>, and <strong>Money Plant</strong> in living areas. Snake plants release oxygen at night, absorbing common urban volatile compounds (benzene and formaldehyde) with zero electricity bill.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button onclick="closeIndoorHacks()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-sm transition">
+          Got It, Thanks!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: FEATURE 2 - TOMORROW'S PLAN -->
+  <div id="tomorrow-plan-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-5 fade-in">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div class="flex items-center space-x-3">
+          <span class="text-3xl">🏃</span>
+          <div>
+            <h3 class="text-xl font-extrabold text-slate-900">Should I go for jogging tomorrow morning?</h3>
+            <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+              Powered by Gemini AI &bull; Tomorrow Morning Forecast
+            </span>
+          </div>
+        </div>
+        <button onclick="closeTomorrowPlan()" class="text-slate-400 hover:text-slate-700 p-2 text-2xl font-bold leading-none">
+          &times;
+        </button>
+      </div>
+
+      <!-- Verdict Banner -->
+      <div class="p-5 rounded-2xl bg-red-50 border-2 border-red-200 flex items-start space-x-3">
+        <span class="text-3xl">⚠️</span>
+        <div>
+          <h4 class="text-base font-extrabold text-red-900">
+            Gemini AI Verdict: NO &bull; Avoid 6:00 AM Outdoor Jogging Tomorrow
+          </h4>
+          <p class="text-xs sm:text-sm text-red-700 mt-1 leading-relaxed">
+            Severe ground-level thermal inversion will peak in Kolkata between 5:30 AM and 8:30 AM. Deep cardio breathing will force concentrated PM2.5 deep into your lower airways.
+          </p>
+        </div>
+      </div>
+
+      <!-- AI Analysis Details -->
+      <div class="space-y-3 text-xs sm:text-sm text-slate-700">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+          <div class="font-bold text-slate-900 flex items-center space-x-1.5">
+            <span>🔬</span>
+            <span>Why is Kolkata morning air deceptive?</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed">
+            Cold winter night air traps truck diesel particulate matter, brick kiln emissions, and road dust under a 100-meter dense ceiling over open spaces like Maidan, Rabindra Sarobar, and Eco Park. Jogging forces you to mouth-breathe 40 to 60 liters of air per minute—inhaling 8x more soot than walking.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-1">
+          <div class="font-bold text-emerald-900 flex items-center space-x-1.5">
+            <span>💡</span>
+            <span>Gemini AI Recommended Tomorrow Plan:</span>
+          </div>
+          <ul class="list-disc pl-5 space-y-1 text-slate-700">
+            <li><strong>Morning Alternative:</strong> 25 minutes of indoor yoga, bodyweight workout, or skipping in a closed room.</li>
+            <li><strong>Outdoor Walking Window:</strong> If you must go outside, walk briskly between <strong>4:15 PM and 5:45 PM</strong> when afternoon solar wind disperses surface toxins.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button onclick="closeTomorrowPlan()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-sm transition">
+          I Will Plan Accordingly
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200/80 py-6 px-4 mt-8">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center space-x-2">
+        <span class="font-extrabold text-slate-800">AirSafe Family</span>
+        <span>&bull;</span>
+        <span>Urban Air Quality Assistant for Kolkata, India</span>
+      </div>
+      <div class="flex items-center space-x-1 text-indigo-600 font-bold">
+        <span>✨ Powered by Gemini AI</span>
+        <span class="text-slate-400 font-normal ml-2">&bull; WBPCB Monitoring Data Integration</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
