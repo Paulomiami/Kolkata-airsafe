@@ -4,7 +4,8 @@
   "description": "AirSafe Family - Urban Air Quality Assistant for Kolkata, India. Powered by Gemini AI.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest"
   },
   "keywords": [
     "air-quality",
@@ -14,5 +15,8 @@
     "family-health"
   ],
   "author": "Google DeepMind Antigravity",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
 }
